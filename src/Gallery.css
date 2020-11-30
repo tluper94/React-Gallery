@@ -1,0 +1,10 @@
+.gallery__container{
+  display: flex;
+  flex-direction: row;
+  border: 2px solid black;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.gallery__item{
+}
