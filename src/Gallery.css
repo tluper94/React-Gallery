@@ -4,7 +4,19 @@
   border: 2px solid black;
   overflow: hidden;
   border-radius: 10px;
+  position: relative;
 }
 
-.gallery__item{
+.gallery__controls{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery__controls--left{
+  margin-right: auto;
 }
