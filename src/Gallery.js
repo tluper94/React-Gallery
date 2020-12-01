@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CaretCircleLeft, CaretCircleRight, Circle } from 'phosphor-react';
 import './Gallery.css';
 
@@ -8,8 +8,43 @@ function Gallery({ children, width, height, controls, dots }) {
 	const [transform, setTransform] = useState(0);
 	const indexLength = children.length;
 
+	const galleryItemStyle = {
+		transform: `translatex(${transform}px)`,
+		transition: 'all 600ms ease',
+		minWidth: `100%`,
+		minHeight: '100%',
+		objectFit: 'cover'
+	};
+
+	const galleryContainerStyle = {
+		width: `${width}px`,
+		height: `${height}px`
+	};
+
+	const items = React.Children.map(children, (item, i) => {
+		const isCurrent = currentIndex === i + 1 ? 'current' : '';
+		const className = `gallery__item ${isCurrent}`;
+		const style = galleryItemStyle;
+		const props = { ...item.props, className: className, style: style };
+		return React.cloneElement(item, props);
+	});
+
+	useEffect(() => {
+		function onResize(e) {
+			setCurrentIndex(1);
+			setTransform(0);
+		}
+		window.addEventListener('resize', onResize);
+
+		return () => {
+			window.removeEventListener('resize', onResize);
+		};
+	});
 	// Initial touch on gallery container
 	const onStartTouch = (e) => {
+		if (!e.currentTarget) {
+			return;
+		}
 		setInitialX(e.touches[0].clientX);
 	};
 
@@ -19,7 +54,11 @@ function Gallery({ children, width, height, controls, dots }) {
 		const lastTouchX = e.changedTouches[0].clientX;
 		const diffX = initialX - lastTouchX;
 
-		diffX > 0 ? nextGalleryItem(containerWidth) : prevGalleryItem(containerWidth);
+		if (diffX > 10) {
+			nextGalleryItem(containerWidth);
+		} else if (diffX < -10) {
+			prevGalleryItem(containerWidth);
+		}
 
 		setInitialX(null);
 	};
@@ -42,12 +81,28 @@ function Gallery({ children, width, height, controls, dots }) {
 		setCurrentIndex(currentIndex - 1);
 	};
 
+	const handleClickPrev = (e) => {
+		const ele = document.querySelectorAll('.gallery__container');
+		const containerWidth = ele[0].clientWidth;
+		prevGalleryItem(containerWidth);
+	};
+
+	const handleClickNext = (e) => {
+		const ele = document.querySelectorAll('.gallery__container');
+		const containerWidth = ele[0].clientWidth;
+		nextGalleryItem(containerWidth);
+	};
+
 	// Display next arrow if  currentIndex is less than indexLength
 	const displayNextArrow = () => {
 		if (currentIndex === indexLength) {
 			return <div></div>;
 		} else {
-			return <CaretCircleRight color='white' size={40} weight='fill' />;
+			return (
+				<button className='gallery__controls--right' onClick={handleClickNext}>
+					<CaretCircleRight color='white' size={40} weight='fill' />
+				</button>
+			);
 		}
 	};
 
@@ -56,42 +111,13 @@ function Gallery({ children, width, height, controls, dots }) {
 		if (currentIndex === 1) {
 			return <div></div>;
 		} else {
-			return <CaretCircleLeft color='white' size={40} weight='fill' />;
-		}
-	};
-
-	// Display control arrows if control prop is set to true
-	const displayControls = () => {
-		if (controls) {
 			return (
-				<div className='gallery__controls'>
-					<div className='gallery__controls--left'>{displayPrevArrow()}</div>
-					<div className='gallery__controls--right'>{displayNextArrow()}</div>
-				</div>
+				<button className='gallery__controls--left' onClick={handleClickPrev}>
+					<CaretCircleLeft color='white' size={40} weight='fill' />
+				</button>
 			);
 		}
 	};
-
-	const galleryItemStyle = {
-		transform: `translatex(${transform}px)`,
-		transition: 'all 600ms ease',
-		minWidth: `100%`,
-		minHeight: '100%',
-		objectFit: 'fill'
-	};
-
-	const galleryContainerStyle = {
-		width: `${width}px`,
-		height: `${height}px`
-	};
-
-	const items = React.Children.map(children, (item, i) => {
-		const isCurrent = currentIndex === i + 1 ? 'current' : '';
-		const className = `gallery__item ${isCurrent}`;
-		const style = galleryItemStyle;
-		const props = { ...item.props, className: className, style: style };
-		return React.cloneElement(item, props);
-	});
 
 	return (
 		<div className='App'>
@@ -104,8 +130,9 @@ function Gallery({ children, width, height, controls, dots }) {
 				{items.map((child, i) => {
 					return items[i];
 				})}
-				{displayControls()}
 			</div>
+			{controls && displayPrevArrow()}
+			{controls && displayNextArrow()}
 		</div>
 	);
 }

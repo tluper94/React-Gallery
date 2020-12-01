@@ -1,14 +1,18 @@
+.App{
+  position: relative;
+}
+
 .gallery__container{
   display: flex;
   flex-direction: row;
   border: 2px solid black;
   overflow: hidden;
   border-radius: 10px;
-  position: relative;
 }
 
 .gallery__controls{
   display: flex;
+  order: 1;
   align-items: center;
   position: absolute;
   top:0;
@@ -18,5 +22,23 @@
 }
 
 .gallery__controls--left{
-  margin-right: auto;
+  border: none;
+  background: none;
+  outline: none;
+  position: absolute;
+  cursor: pointer;
+  left:0;
+  top: 50%;
+
+}
+
+.gallery__controls--right{
+  border: none;
+  background: none;
+  outline: none;
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  top: 50%;
+
 }
