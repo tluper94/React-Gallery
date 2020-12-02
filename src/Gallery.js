@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CaretCircleLeft, CaretCircleRight, Circle } from 'phosphor-react';
 import './Gallery.css';
 
 function Gallery({ children, width, height, controls, dots }) {
-	const [currentIndex, setCurrentIndex] = useState(1);
+	const [currentIndex, setCurrentIndex] = useState(0);
 	const [initialX, setInitialX] = useState(null);
 	const [transform, setTransform] = useState(0);
 	const indexLength = children.length;
+	const galleryContainerRef = useRef();
 
 	const galleryItemStyle = {
 		transform: `translatex(${transform}px)`,
@@ -16,13 +17,14 @@ function Gallery({ children, width, height, controls, dots }) {
 		objectFit: 'cover'
 	};
 
-	const galleryContainerStyle = {
-		width: `${width}px`,
-		height: `${height}px`
+	const galleryStyle = {
+		width: width,
+		height: height
 	};
 
+	// Maps over component children and creates a new element with the 'gallery_item' className
 	const items = React.Children.map(children, (item, i) => {
-		const isCurrent = currentIndex === i + 1 ? 'current' : '';
+		const isCurrent = currentIndex === i ? 'current' : '';
 		const className = `gallery__item ${isCurrent}`;
 		const style = galleryItemStyle;
 		const props = { ...item.props, className: className, style: style };
@@ -31,15 +33,12 @@ function Gallery({ children, width, height, controls, dots }) {
 
 	useEffect(() => {
 		function onResize(e) {
-			setCurrentIndex(1);
-			setTransform(0);
+			const containerWidth = galleryContainerRef.current.clientWidth;
+			setTransform(currentIndex * -containerWidth);
 		}
 		window.addEventListener('resize', onResize);
-
-		return () => {
-			window.removeEventListener('resize', onResize);
-		};
 	});
+
 	// Initial touch on gallery container
 	const onStartTouch = (e) => {
 		if (!e.currentTarget) {
@@ -65,7 +64,7 @@ function Gallery({ children, width, height, controls, dots }) {
 
 	// Translates to next gallery item when swipe is left
 	const nextGalleryItem = (w) => {
-		if (currentIndex === indexLength) {
+		if (currentIndex + 1 === indexLength) {
 			return;
 		}
 		setTransform(transform - w);
@@ -74,58 +73,86 @@ function Gallery({ children, width, height, controls, dots }) {
 
 	// Translate to prev gallery item when swipe is right
 	const prevGalleryItem = (w) => {
-		if (currentIndex === 1) {
+		if (currentIndex === 0) {
 			return;
 		}
 		setTransform(transform + w);
 		setCurrentIndex(currentIndex - 1);
 	};
 
+	// Handles prev control button click
 	const handleClickPrev = (e) => {
-		const ele = document.querySelectorAll('.gallery__container');
-		const containerWidth = ele[0].clientWidth;
+		const containerWidth = galleryContainerRef.current.clientWidth;
 		prevGalleryItem(containerWidth);
 	};
 
+	// Handles next control button click
 	const handleClickNext = (e) => {
-		const ele = document.querySelectorAll('.gallery__container');
-		const containerWidth = ele[0].clientWidth;
+		const containerWidth = galleryContainerRef.current.clientWidth;
 		nextGalleryItem(containerWidth);
 	};
 
 	// Display next arrow if  currentIndex is less than indexLength
 	const displayNextArrow = () => {
-		if (currentIndex === indexLength) {
+		if (currentIndex + 1 === indexLength) {
 			return <div></div>;
 		} else {
+			const { color, size, weight } = controls;
 			return (
 				<button className='gallery__controls--right' onClick={handleClickNext}>
-					<CaretCircleRight color='white' size={40} weight='fill' />
+					<CaretCircleRight color={color && color} size={size && size} weight={weight && weight} />
 				</button>
 			);
 		}
 	};
 
-	// Display prev arrow if  currentIndex is equal to 1
+	// Display prev arrow if  currentIndex is greater than 0
 	const displayPrevArrow = () => {
-		if (currentIndex === 1) {
+		if (currentIndex === 0) {
 			return <div></div>;
 		} else {
+			const { color, size, weight } = controls;
 			return (
 				<button className='gallery__controls--left' onClick={handleClickPrev}>
-					<CaretCircleLeft color='white' size={40} weight='fill' />
+					<CaretCircleLeft color={color && color} size={size && size} weight={weight && weight} />
 				</button>
 			);
 		}
+	};
+
+	// Handles dot click
+	const handleDotClick = (e) => {
+		const containerWidth = galleryContainerRef.current.clientWidth;
+		const selectedDot = e.currentTarget;
+		const selectedIndex = Number(selectedDot.id);
+
+		console.log('Dot function', selectedIndex);
+
+		setCurrentIndex(selectedIndex);
+		setTransform(selectedIndex * -containerWidth);
+	};
+
+	// Maps over gallery items and display a dot for each item and fills in dot based off of currentIndex
+	const displayDots = () => {
+		const { color, size } = dots;
+		let current;
+		return items.map((item, i) => {
+			currentIndex === i ? (current = 'fill') : (current = 'duotone');
+			return (
+				<button id={i} key={items[i].key} className={`gallery__dots--button ${i}`} onClick={handleDotClick}>
+					<Circle color={color && color} size={size && size} weight={current} />
+				</button>
+			);
+		});
 	};
 
 	return (
-		<div className='App'>
+		<div className='gallery' style={galleryStyle}>
 			<div
-				style={galleryContainerStyle}
 				className='gallery__container'
 				onTouchStart={onStartTouch}
 				onTouchEnd={onTouchEnd}
+				ref={galleryContainerRef}
 			>
 				{items.map((child, i) => {
 					return items[i];
@@ -133,6 +160,7 @@ function Gallery({ children, width, height, controls, dots }) {
 			</div>
 			{controls && displayPrevArrow()}
 			{controls && displayNextArrow()}
+			<div className='gallery__dots'>{dots && displayDots()}</div>
 		</div>
 	);
 }

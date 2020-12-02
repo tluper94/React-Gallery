@@ -1,11 +1,13 @@
-.App{
+.gallery{
   position: relative;
 }
 
 .gallery__container{
   display: flex;
   flex-direction: row;
-  border: 2px solid black;
+  width: 100%;
+  height: 100%;
+  border: 2px;
   overflow: hidden;
   border-radius: 10px;
 }
@@ -28,8 +30,12 @@
   position: absolute;
   cursor: pointer;
   left:0;
-  top: 50%;
+  top: 45%;
 
+}
+
+.gallery__controls--left:active{
+  background:none;
 }
 
 .gallery__controls--right{
@@ -39,6 +45,18 @@
   position: absolute;
   cursor: pointer;
   right: 0;
-  top: 50%;
+  top: 45%;
+}
 
+.gallery__dots{
+  position: absolute;
+  left: 40%;
+  bottom: 0;
+}
+
+.gallery__dots--button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
