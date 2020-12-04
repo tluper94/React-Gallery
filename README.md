@@ -12,6 +12,10 @@ $ npm i @tluper94/react-gallery
 
 # Usage
 
+```jsx
+import Gallery from '@tluper94/react-gallery/lib/Gallery';
+```
+
 React-gallery accept the following props
 
 ### Gallery Items 
@@ -46,9 +50,10 @@ Example:
 ### Controls
 
 Controls prop is optional and accepts a type object {color: 'string', size: 'string', weight: 'string}
-color - can be any css color
-size - can be any css size 
-weight - 'thin', 'light', 'regular', 'bold', 'fill', 'duotone'
+
+-color - can be any css color
+-size - can be any css size 
+-weight - 'thin', 'light', 'regular', 'bold', 'fill', 'duotone'
 
 Example:
 ```jsx
@@ -63,9 +68,10 @@ Example:
 ### Dots
 
 Dots prop is optional and accepts a type object {color: 'string', size: 'string', inside: boolean}
-color - can be any css color
-size - can be any css size 
-inside - tru -- if true dots are on the inside of container else on the outside
+
+-color - can be any css color
+-size - can be any css size 
+-inside - tru -- if true dots are on the inside of container else on the outside
 
 Example:
 ```jsx
