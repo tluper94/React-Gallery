@@ -16,8 +16,6 @@ $ npm i @tluper94/react-gallery
 import Gallery from '@tluper94/react-gallery/lib/Gallery';
 ```
 
-React-gallery accept the following props
-
 ### Gallery Items 
 
 Gallery items are children of the gallery component

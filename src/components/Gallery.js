@@ -30,13 +30,11 @@ function Gallery({ children, width, height, controls, dots }) {
 		const props = { ...item.props, className: className, style: style, ref: galleryItemRef };
 		return React.cloneElement(item, props);
 	});
-	console.log(transform);
 
 	useEffect(() => {
 		function onResize(e) {
 			const item = galleryItemRef.current;
 			const w = item.getBoundingClientRect().width;
-			console.log(w);
 			setTransform(currentIndex * -w);
 		}
 		window.addEventListener('resize', onResize);
