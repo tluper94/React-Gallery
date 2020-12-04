@@ -75,7 +75,7 @@ Dots prop is optional and accepts a type object {color: 'string', size: 'string'
 
 -size - can be any css size 
 
--inside - tru -- if true dots are on the inside of container else on the outside
+-inside - true -- if true dots are on the inside of container else on the outside
 
 Example:
 ```jsx
