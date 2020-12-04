@@ -49,9 +49,10 @@
 }
 
 .gallery__dots{
+  display: flex;
+  justify-content: center;
   position: absolute;
-  left: 40%;
-  bottom: 0;
+  width: 100%;
 }
 
 .gallery__dots--button {

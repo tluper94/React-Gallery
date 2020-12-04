@@ -7,7 +7,7 @@ function Gallery({ children, width, height, controls, dots }) {
 	const [initialX, setInitialX] = useState(null);
 	const [transform, setTransform] = useState(0);
 	const indexLength = children.length;
-	const galleryContainerRef = useRef();
+	const galleryItemRef = useRef();
 
 	const galleryItemStyle = {
 		transform: `translatex(${transform}px)`,
@@ -27,17 +27,24 @@ function Gallery({ children, width, height, controls, dots }) {
 		const isCurrent = currentIndex === i ? 'current' : '';
 		const className = `gallery__item ${isCurrent}`;
 		const style = galleryItemStyle;
-		const props = { ...item.props, className: className, style: style };
+		const props = { ...item.props, className: className, style: style, ref: galleryItemRef };
 		return React.cloneElement(item, props);
 	});
+	console.log(transform);
 
 	useEffect(() => {
 		function onResize(e) {
-			const containerWidth = galleryContainerRef.current.clientWidth;
-			setTransform(currentIndex * -containerWidth);
+			const item = galleryItemRef.current;
+			const w = item.getBoundingClientRect().width;
+			console.log(w);
+			setTransform(currentIndex * -w);
 		}
 		window.addEventListener('resize', onResize);
-	});
+
+		return () => {
+			window.removeEventListener('resize', onResize);
+		};
+	}, [currentIndex]);
 
 	// Initial touch on gallery container
 	const onStartTouch = (e) => {
@@ -49,14 +56,15 @@ function Gallery({ children, width, height, controls, dots }) {
 
 	// Get difference from intial touch and end touch to determine swipe direction
 	const onTouchEnd = (e) => {
-		const containerWidth = e.target.clientWidth;
+		const item = galleryItemRef.current;
+		const w = item.getBoundingClientRect().width;
 		const lastTouchX = e.changedTouches[0].clientX;
 		const diffX = initialX - lastTouchX;
 
-		if (diffX > 10) {
-			nextGalleryItem(containerWidth);
-		} else if (diffX < -10) {
-			prevGalleryItem(containerWidth);
+		if (diffX > 25) {
+			nextGalleryItem(w);
+		} else if (diffX < -25) {
+			prevGalleryItem(w);
 		}
 
 		setInitialX(null);
@@ -82,14 +90,16 @@ function Gallery({ children, width, height, controls, dots }) {
 
 	// Handles prev control button click
 	const handleClickPrev = (e) => {
-		const containerWidth = galleryContainerRef.current.clientWidth;
-		prevGalleryItem(containerWidth);
+		const item = galleryItemRef.current;
+		const w = item.getBoundingClientRect().width;
+		prevGalleryItem(w);
 	};
 
 	// Handles next control button click
 	const handleClickNext = (e) => {
-		const containerWidth = galleryContainerRef.current.clientWidth;
-		nextGalleryItem(containerWidth);
+		const item = galleryItemRef.current;
+		const w = item.getBoundingClientRect().width;
+		nextGalleryItem(w);
 	};
 
 	// Display next arrow if  currentIndex is less than indexLength
@@ -122,20 +132,21 @@ function Gallery({ children, width, height, controls, dots }) {
 
 	// Handles dot click
 	const handleDotClick = (e) => {
-		const containerWidth = galleryContainerRef.current.clientWidth;
+		const item = galleryItemRef.current;
+		const w = item.getBoundingClientRect().width;
 		const selectedDot = e.currentTarget;
 		const selectedIndex = Number(selectedDot.id);
 
-		console.log('Dot function', selectedIndex);
-
 		setCurrentIndex(selectedIndex);
-		setTransform(selectedIndex * -containerWidth);
+		setTransform(selectedIndex * -w);
 	};
 
 	// Maps over gallery items and display a dot for each item and fills in dot based off of currentIndex
 	const displayDots = () => {
 		const { color, size } = dots;
 		let current;
+		let location;
+		console.log(location);
 		return items.map((item, i) => {
 			currentIndex === i ? (current = 'fill') : (current = 'duotone');
 			return (
@@ -146,21 +157,21 @@ function Gallery({ children, width, height, controls, dots }) {
 		});
 	};
 
+	let location;
+	dots.inside ? (location = { bottom: 0 }) : (location = {});
+
 	return (
 		<div className='gallery' style={galleryStyle}>
-			<div
-				className='gallery__container'
-				onTouchStart={onStartTouch}
-				onTouchEnd={onTouchEnd}
-				ref={galleryContainerRef}
-			>
+			<div className='gallery__container' onTouchStart={onStartTouch} onTouchEnd={onTouchEnd}>
 				{items.map((child, i) => {
 					return items[i];
 				})}
 			</div>
 			{controls && displayPrevArrow()}
 			{controls && displayNextArrow()}
-			<div className='gallery__dots'>{dots && displayDots()}</div>
+			<div style={location} className='gallery__dots'>
+				{dots && displayDots()}
+			</div>
 		</div>
 	);
 }

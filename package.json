@@ -1,7 +1,12 @@
 {
-  "name": "react-gallery",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@tluper94/react-gallery",
+  "version": "1.0.0",
+  "author": "Trevor L",
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
@@ -16,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "publish:npm": "rm -rf dist && mkdir dist &&  babel ./src/components -d dist --copy-files"
   },
   "eslintConfig": {
     "extends": [
@@ -35,5 +41,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/plugin-syntax-jsx": "^7.12.1",
+    "@babel/plugin-transform-react-jsx": "^7.12.7",
+    "@babel/preset-flow": "^7.12.1",
+    "@babel/preset-react": "^7.12.7"
   }
 }
