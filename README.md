@@ -34,8 +34,7 @@ Example:
 
 width and height is required and accepts type 'string'
 
-example:
-
+Example:
 ```jsx
 <Gallery
     width='100px'
@@ -51,8 +50,7 @@ color - can be any css color
 size - can be any css size 
 weight - 'thin', 'light', 'regular', 'bold', 'fill', 'duotone'
 
-example:
-
+Example:
 ```jsx
 <Gallery
     width='20vh'
@@ -69,6 +67,7 @@ color - can be any css color
 size - can be any css size 
 inside - tru -- if true dots are on the inside of container else on the outside
 
+Example:
 ```jsx
 <Gallery
     width='100%'
