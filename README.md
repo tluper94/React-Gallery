@@ -52,7 +52,9 @@ Example:
 Controls prop is optional and accepts a type object {color: 'string', size: 'string', weight: 'string}
 
 -color - can be any css color
+
 -size - can be any css size 
+
 -weight - 'thin', 'light', 'regular', 'bold', 'fill', 'duotone'
 
 Example:
@@ -70,7 +72,9 @@ Example:
 Dots prop is optional and accepts a type object {color: 'string', size: 'string', inside: boolean}
 
 -color - can be any css color
+
 -size - can be any css size 
+
 -inside - tru -- if true dots are on the inside of container else on the outside
 
 Example:
