@@ -70,7 +70,7 @@ function Gallery({ children, width, height, controls, dots }) {
 
 	// Translates to next gallery item when swipe is left
 	const nextGalleryItem = (w) => {
-		if (currentIndex + 1 === indexLength) {
+		if (currentIndex + 1 === indexLength || indexLength === undefined) {
 			return;
 		}
 		setTransform(transform - w);
@@ -102,7 +102,7 @@ function Gallery({ children, width, height, controls, dots }) {
 
 	// Display next arrow if  currentIndex is less than indexLength
 	const displayNextArrow = () => {
-		if (currentIndex + 1 === indexLength) {
+		if (currentIndex + 1 === indexLength || indexLength === undefined) {
 			return <div></div>;
 		} else {
 			const { color, size, weight } = controls;
@@ -143,8 +143,6 @@ function Gallery({ children, width, height, controls, dots }) {
 	const displayDots = () => {
 		const { color, size } = dots;
 		let current;
-		let location;
-		console.log(location);
 		return items.map((item, i) => {
 			currentIndex === i ? (current = 'fill') : (current = 'duotone');
 			return (
@@ -155,8 +153,10 @@ function Gallery({ children, width, height, controls, dots }) {
 		});
 	};
 
-	let location;
-	dots.inside ? (location = { bottom: 0 }) : (location = {});
+	let dotsLocation = {};
+	if (dots) {
+		dots.inside ? (dotsLocation = { bottom: 0 }) : (dotsLocation = {});
+	}
 
 	return (
 		<div className='gallery' style={galleryStyle}>
@@ -167,7 +167,7 @@ function Gallery({ children, width, height, controls, dots }) {
 			</div>
 			{controls && displayPrevArrow()}
 			{controls && displayNextArrow()}
-			<div style={location} className='gallery__dots'>
+			<div style={dotsLocation} className='gallery__dots'>
 				{dots && displayDots()}
 			</div>
 		</div>
