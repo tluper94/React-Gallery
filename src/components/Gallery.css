@@ -1,0 +1,63 @@
+.gallery{
+  position: relative;
+}
+
+.gallery__container{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  border: 2px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.gallery__controls{
+  display: flex;
+  order: 1;
+  align-items: center;
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery__controls--left{
+  border: none;
+  background: none;
+  outline: none;
+  position: absolute;
+  cursor: pointer;
+  left:0;
+  top: 45%;
+
+}
+
+.gallery__controls--left:active{
+  background:none;
+}
+
+.gallery__controls--right{
+  border: none;
+  background: none;
+  outline: none;
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  top: 45%;
+}
+
+.gallery__dots{
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+}
+
+.gallery__dots--button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

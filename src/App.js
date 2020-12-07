@@ -1,25 +1,73 @@
-import logo from './logo.svg';
+import Gallery from './components/Gallery';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+	return (
+		<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+			<div style={{ margin: '10px' }}>
+				<Gallery width='80vw' height='30vw'>
+					<img
+						alt='test'
+						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTguanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
+					/>
+				</Gallery>
+			</div>
 
+			<div style={{ margin: '10px' }}>
+				<Gallery width='30vw' height='30vw' dots={{ color: 'red', size: '1.5vw' }}>
+					<img
+						alt='test'
+						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTguanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
+					/>
+					<img
+						alt='test'
+						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTEucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
+					/>
+					<img
+						alt='test'
+						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTEucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
+					/>
+					<img
+						alt='test'
+						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTguanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
+					/>
+					<img
+						alt='test'
+						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTguanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
+					/>
+					<img
+						alt='test'
+						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTguanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
+					/>
+					<img
+						alt='test'
+						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTguanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
+					/>
+				</Gallery>
+			</div>
+
+			<div style={{ margin: '10px' }}>
+				<Gallery
+					width='200px'
+					height='200px'
+					controls={{ color: '#fff', size: '2vw', weight: 'fill' }}
+					dots={{ responsive: 'true', color: 'black', size: '1.5vw' }}
+				>
+					<img
+						alt='test'
+						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTguanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
+					/>
+					<img
+						alt='test'
+						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTEucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
+					/>
+					<img
+						alt='test'
+						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTEucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
+					/>
+				</Gallery>
+			</div>
+		</div>
+	);
+}
 export default App;

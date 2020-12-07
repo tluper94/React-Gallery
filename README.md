@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+# @tluper94/React-gallery v1.0.7
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React gallery is a simple gallery/carousel component for react
 
-## Available Scripts
+# Installation
+ 
+ Using npm
 
-In the project directory, you can run:
+```node
+$ npm i @tluper94/react-gallery
+```
 
-### `npm start`
+# Usage
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```jsx
+import Gallery from '@tluper94/react-gallery/lib/Gallery';
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Gallery Items 
 
-### `npm test`
+Gallery items are children of the gallery component
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Example:
+```jsx
+<Gallery
+    width='500px'
+    height='500px'
+>
+    <img/>
+    <video/>
+    <div>Example</div>
+</Gallery>
+```
 
-### `npm run build`
+### Width & Height 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+width and height is required and accepts type 'string'
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Example:
+```jsx
+<Gallery
+    width='100px'
+    heith='100px'
+>
+</Gallery>
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Controls
 
-### `npm run eject`
+Controls prop is optional and accepts a type object {color: 'string', size: 'string', weight: 'string}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+-color - can be any css color
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-size - can be any css size 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+-weight - 'thin', 'light', 'regular', 'bold', 'fill', 'duotone'
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Example:
+```jsx
+<Gallery
+    width='20vh'
+    height='20vh'
+    controls={color: '#fff', size: '2vw', weight: 'fill'}
+>
+<Gallery>
+```
 
-## Learn More
+### Dots
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Dots prop is optional and accepts a type object {color: 'string', size: 'string', inside: boolean}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-color - can be any css color
 
-### Code Splitting
+-size - can be any css size 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+-inside - true -- if true dots are on the inside of container else on the outside
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Example:
+```jsx
+<Gallery
+    width='100%'
+    height='100%'
+    dots={color: 'black', size: '20px' inside: true}
+>
+</Gallery>
