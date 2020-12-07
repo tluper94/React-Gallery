@@ -1,6 +1,6 @@
 {
   "name": "@tluper94/react-gallery",
-  "version": "1.0.8",
+  "version": "1.0.26",
   "author": "Trevor L",
   "main": "Gallery.js",
   "babel": {
