@@ -6,8 +6,10 @@ function Gallery({ children, width, height, controls, dots }) {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [initialX, setInitialX] = useState(null);
 	const [transform, setTransform] = useState(0);
-	const indexLength = children.length;
 	const galleryItemRef = useRef();
+	let indexLength = undefined;
+
+	children ? (indexLength = children.length) : (indexLength = undefined);
 
 	const galleryItemStyle = {
 		transform: `translatex(${transform}px)`,
@@ -143,14 +145,33 @@ function Gallery({ children, width, height, controls, dots }) {
 	const displayDots = () => {
 		const { color, size } = dots;
 		let current;
-		return items.map((item, i) => {
-			currentIndex === i ? (current = 'fill') : (current = 'duotone');
-			return (
-				<button id={i} key={items[i].key} className={`gallery__dots--button ${i}`} onClick={handleDotClick}>
-					<Circle color={color && color} size={size && size} weight={current} />
-				</button>
-			);
-		});
+		if (children) {
+			return items.map((item, i) => {
+				currentIndex === i ? (current = 'fill') : (current = 'duotone');
+				return (
+					<button
+						id={i}
+						key={items[i].key}
+						className={`gallery__dots--button ${i}`}
+						onClick={handleDotClick}
+					>
+						<Circle color={color && color} size={size && size} weight={current} />
+					</button>
+				);
+			});
+		} else {
+			return <div></div>;
+		}
+	};
+
+	const displayItems = () => {
+		if (items) {
+			return items.map((child, i) => {
+				return items[i];
+			});
+		} else {
+			return <div></div>;
+		}
 	};
 
 	let dotsLocation = {};
@@ -161,9 +182,7 @@ function Gallery({ children, width, height, controls, dots }) {
 	return (
 		<div className='gallery' style={galleryStyle}>
 			<div className='gallery__container' onTouchStart={onStartTouch} onTouchEnd={onTouchEnd}>
-				{items.map((child, i) => {
-					return items[i];
-				})}
+				{displayItems()}
 			</div>
 			{controls && displayPrevArrow()}
 			{controls && displayNextArrow()}

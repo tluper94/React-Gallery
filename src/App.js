@@ -5,12 +5,7 @@ function App() {
 	return (
 		<div style={{ display: 'flex', flexWrap: 'wrap' }}>
 			<div style={{ margin: '10px' }}>
-				<Gallery width='80vw' height='30vw'>
-					<img
-						alt='test'
-						src='https://d2wddn0t8pomzy.cloudfront.net/eyJidWNrZXQiOiJraXR0eWdyYW0iLCJrZXkiOiJ0bHVwZXI5NC9raXR0eTguanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3NTAsImhlaWdodCI6NzUwfX19'
-					/>
-				</Gallery>
+				<Gallery width='80vw' height='10vw'></Gallery>
 			</div>
 
 			<div style={{ margin: '10px' }}>

@@ -1,7 +1,8 @@
 {
   "name": "@tluper94/react-gallery",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "author": "Trevor L",
+  "main": "Gallery.js",
   "babel": {
     "presets": [
       "@babel/preset-react"
