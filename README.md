@@ -1,6 +1,8 @@
-# @tluper94/React-gallery v1.0.7
+# @tluper94/React-gallery v1.0.26
 
 React gallery is a simple gallery/carousel component for react
+
+Check out the demo - [Codesandbox demo](https://codesandbox.io/s/react-gallery-demo-g76v7?fontsize=14&hidenavigation=1&theme=dark)
 
 # Installation
  
